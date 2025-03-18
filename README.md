@@ -1,4 +1,3 @@
-# silk_spectre
 # Silk Spectre
 
 An interactive one-actress theatre play where the audience decides the story through live polling.
