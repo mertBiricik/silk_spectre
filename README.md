@@ -10,10 +10,19 @@ Silk Spectre is an immersive theatrical experience where a single actress perfor
 
 This repository contains the web application that powers the audience polling mechanism. The application is:
 
-- Mobile-friendly web app
+- Mobile-friendly web app built with Hyperview 
 - Deployed in the cloud
 - Containerised using Docker
 - Orchestrated with docker-compose
+
+### Hyperview Integration
+
+This project utilises Hyperview, a powerful XML-based UI framework that enables highly responsive and dynamic mobile interfaces with minimal network traffic. Hyperview optimises the audience polling experience by:
+
+- Providing near-native performance on mobile browsers
+- Enabling real-time updates without full page reloads
+- Reducing bandwidth consumption during live performances
+- Supporting offline functionality to ensure uninterrupted participation
 
 ## Getting Started
 
