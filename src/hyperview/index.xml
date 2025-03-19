@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doc xmlns="https://hyperview.org/hyperview">
+  <screen>
+    <styles>
+      <style id="screen" backgroundColor="#FFFFFF" flex="1" />
+      <style id="header" backgroundColor="#7d4cdb" paddingTop="48" paddingBottom="24" paddingLeft="24" paddingRight="24" />
+      <style id="title" color="white" fontSize="24" fontWeight="bold" />
+      <style id="content" padding="24" flex="1" />
+      <style id="poll-card" backgroundColor="#f8f8f8" borderRadius="8" marginBottom="16" padding="16" shadowColor="#000" shadowOffset="0 1" shadowOpacity="0.1" shadowRadius="4" />
+      <style id="poll-question" fontSize="18" fontWeight="bold" marginBottom="8" />
+      <style id="poll-description" fontSize="14" color="#666666" marginBottom="16" />
+      <style id="choice-button" backgroundColor="#7d4cdb" borderRadius="4" padding="12" marginBottom="8" alignItems="center" />
+      <style id="choice-text" color="white" fontWeight="bold" />
+      <style id="inactive-text" fontSize="16" color="#666666" textAlign="center" margin="24" />
+    </styles>
+    <body style="screen">
+      <header style="header">
+        <text style="title">Silk Spectre</text>
+      </header>
+      <view style="content">
+        <behavior trigger="load" action="fetch" href="/api/active-poll/" />
+        <view id="active-poll-container">
+          <!-- This will be populated by the API response -->
+        </view>
+        <view id="no-active-poll-container" hide="true">
+          <text style="inactive-text">There is no active poll at the moment. Please wait for the next audience choice moment.</text>
+        </view>
+      </view>
+    </body>
+  </screen>
+</doc> 
