@@ -64,3 +64,48 @@ This project utilises Hyperview, a powerful XML-based UI framework that enables 
 ## Development
 
 To run the application locally for development:
+
+```
+npm install
+npm run dev
+```
+
+### Project Structure
+
+```
+silk_spectre/
+├── src/
+│   ├── client/        # Frontend codebase
+│   ├── server/        # Backend API and server
+│   └── hyperview/     # Hyperview XML templates
+├── admin/             # Admin panel for managing polls
+├── docker/            # Docker configuration files
+├── docker-compose.yml # Container orchestration
+└── README.md
+```
+
+### Testing
+
+Run the test suite:
+
+```
+npm test
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Hyperview team for their excellent UI framework
+- The theatrical community for embracing technological innovation
+- All contributors and beta testers
