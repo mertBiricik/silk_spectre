@@ -2,38 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silk Spectre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Silk Spectre Polling System</title>
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
     <!-- Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Custom styles with Dracula theme -->
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .container-custom {
-                @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
-            }
-        }
-        
-        @layer base {
-            :root {
-                --dracula-background: #282a36;
-                --dracula-current-line: #44475a;
-                --dracula-selection: #44475a;
-                --dracula-foreground: #f8f8f2;
-                --dracula-comment: #6272a4;
-                --dracula-cyan: #8be9fd;
-                --dracula-green: #50fa7b;
-                --dracula-orange: #ffb86c;
-                --dracula-pink: #ff79c6;
-                --dracula-purple: #bd93f9;
-                --dracula-red: #ff5555;
-                --dracula-yellow: #f1fa8c;
-            }
-        }
-    </style>
-    <!-- Inline tailwind config for Dracula colors -->
+    <!-- Dracula theme config -->
     <script>
         tailwind.config = {
             theme: {
@@ -53,25 +28,104 @@
                             red: '#ff5555',
                             yellow: '#f1fa8c',
                         }
+                    },
+                    screens: {
+                        'xs': '480px',
+                        // Default Tailwind breakpoints
+                        'sm': '640px',
+                        'md': '768px',
+                        'lg': '1024px',
+                        'xl': '1280px',
+                        '2xl': '1536px',
                     }
                 }
             }
         }
     </script>
+    <!-- Mobile Optimization -->
+    <style>
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #282a36;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6272a4;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bd93f9;
+        }
+        
+        /* Tap highlight color */
+        * {
+            -webkit-tap-highlight-color: rgba(189, 147, 249, 0.2);
+        }
+        
+        /* Better touch targets for mobile */
+        button, a, input[type="radio"], input[type="checkbox"] {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        /* Adjust form control heights for mobile */
+        @media (max-width: 640px) {
+            input[type="text"], input[type="password"], input[type="email"], 
+            textarea, select {
+                font-size: 16px; /* Prevents iOS zoom on focus */
+            }
+        }
+    </style>
 </head>
-<body class="bg-dracula-bg text-dracula-foreground min-h-screen">
-    <header class="bg-dracula-selection shadow-md">
-        <div class="container-custom py-4">
-            <nav class="flex justify-between items-center">
-                <a href="index.php" class="text-dracula-purple text-2xl font-bold">Silk Spectre</a>
-                <div class="flex space-x-4">
-                    <a href="index.php" class="text-dracula-foreground hover:text-dracula-cyan px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    <a href="create_poll.php" class="bg-dracula-pink text-dracula-bg hover:bg-dracula-purple px-3 py-2 rounded-md text-sm font-medium">Create Poll</a>
-                </div>
+<body class="bg-dracula-bg text-dracula-foreground min-h-screen flex flex-col">
+    <header class="bg-dracula-currentLine shadow-md">
+        <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between">
+            <div class="flex items-center mb-4 sm:mb-0">
+                <span class="text-3xl mr-2">📊</span>
+                <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') !== false) ? '../' : ''; ?>index.php" class="text-2xl font-bold text-dracula-purple hover:text-dracula-pink transition-colors duration-300">
+                    Silk Spectre
+                </a>
+            </div>
+            <nav>
+                <ul class="flex flex-wrap justify-center items-center space-x-1 sm:space-x-4">
+                    <li>
+                        <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') !== false) ? '../' : ''; ?>index.php" class="px-3 py-2 rounded hover:bg-dracula-selection transition-colors duration-300 flex items-center">
+                            <span>Polls</span>
+                        </a>
+                    </li>
+                    <?php if (isset($_SESSION['admin_id'])): ?>
+                        <li class="hidden xs:block">
+                            <span class="text-dracula-comment">|</span>
+                        </li>
+                        <li>
+                            <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') === false) ? 'admin/' : ''; ?>index.php" class="px-3 py-2 rounded hover:bg-dracula-selection transition-colors duration-300 flex items-center">
+                                <span>Admin</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') === false) ? 'admin/' : ''; ?>logout.php" class="px-3 py-2 rounded hover:bg-dracula-selection transition-colors duration-300 flex items-center">
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <?php if (strpos($_SERVER['PHP_SELF'], 'admin/') === false): ?>
+                            <li>
+                                <a href="admin/login.php" class="px-3 py-2 rounded hover:bg-dracula-selection transition-colors duration-300 flex items-center">
+                                    <span>Admin Login</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </ul>
             </nav>
         </div>
     </header>
-    <main class="container-custom py-8"><?php if(isset($message)): ?>
+    <main class="container mx-auto px-4 py-6 flex-grow">
+    <!-- Main content starts here -->
+    <?php if(isset($message)): ?>
         <div class="bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-green p-4 mb-6" role="alert">
             <p><?php echo $message; ?></p>
         </div>

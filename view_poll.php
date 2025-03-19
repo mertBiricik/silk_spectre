@@ -92,14 +92,14 @@ include_once 'includes/header.php';
 ?>
 
 <div class="mb-6">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-3xl font-bold text-dracula-pink mb-2"><?php echo $poll ? htmlspecialchars($poll['title']) : 'Poll Not Found'; ?></h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-dracula-pink mb-2"><?php echo $poll ? htmlspecialchars($poll['title']) : 'Poll Not Found'; ?></h1>
             <?php if ($poll && !empty($poll['description'])): ?>
                 <p class="text-dracula-comment"><?php echo htmlspecialchars($poll['description']); ?></p>
             <?php endif; ?>
         </div>
-        <a href="index.php" class="bg-dracula-comment hover:bg-dracula-selection text-dracula-foreground px-3 py-1 rounded text-sm">
+        <a href="index.php" class="bg-dracula-comment hover:bg-dracula-selection text-dracula-foreground px-4 py-2 rounded text-center w-full sm:w-auto">
             Back to Polls
         </a>
     </div>
@@ -118,7 +118,7 @@ include_once 'includes/header.php';
 <?php endif; ?>
 
 <?php if ($poll): ?>
-    <div class="bg-dracula-currentLine shadow-md rounded-lg p-6">
+    <div class="bg-dracula-currentLine shadow-md rounded-lg p-4 sm:p-6">
         <?php if (!$poll['is_active']): ?>
             <div class="bg-dracula-comment bg-opacity-20 border-l-4 border-dracula-comment text-dracula-comment p-4 mb-6" role="alert">
                 <p>This poll is no longer active. You can view the results below.</p>
@@ -131,10 +131,10 @@ include_once 'includes/header.php';
                 <h2 class="text-xl font-semibold text-dracula-cyan mb-4">Cast Your Vote</h2>
                 
                 <?php if (!empty($options)): ?>
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-4 mb-6">
                         <?php foreach ($options as $option): ?>
                             <div class="flex items-center">
-                                <input type="radio" id="option-<?php echo $option['id']; ?>" name="option" value="<?php echo $option['id']; ?>" class="h-4 w-4 text-dracula-purple focus:ring-dracula-pink border-dracula-selection">
+                                <input type="radio" id="option-<?php echo $option['id']; ?>" name="option" value="<?php echo $option['id']; ?>" class="h-5 w-5 text-dracula-purple focus:ring-dracula-pink border-dracula-selection">
                                 <label for="option-<?php echo $option['id']; ?>" class="ml-3 block text-dracula-foreground">
                                     <?php echo htmlspecialchars($option['option_text']); ?>
                                 </label>
@@ -142,7 +142,7 @@ include_once 'includes/header.php';
                         <?php endforeach; ?>
                     </div>
                     
-                    <button type="submit" class="bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-2 px-4 rounded transition-colors">
+                    <button type="submit" class="w-full sm:w-auto bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-3 px-6 rounded transition-colors">
                         Submit Vote
                     </button>
                 <?php else: ?>
@@ -156,30 +156,30 @@ include_once 'includes/header.php';
             <?php if ($totalVotes > 0): ?>
                 <p class="text-dracula-comment mb-4">Total votes: <?php echo $totalVotes; ?></p>
                 
-                <div class="space-y-4">
+                <div class="space-y-5">
                     <?php foreach ($results as $result): ?>
                         <?php 
                             $percentage = ($result['vote_count'] / $totalVotes) * 100;
                             $percentage = round($percentage, 1);
                         ?>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dracula-foreground">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                                <span class="text-dracula-foreground font-medium mb-1 sm:mb-0">
                                     <?php echo htmlspecialchars($result['option_text']); ?>
                                 </span>
                                 <span class="text-dracula-purple">
                                     <?php echo $result['vote_count']; ?> votes (<?php echo $percentage; ?>%)
                                 </span>
                             </div>
-                            <div class="w-full bg-dracula-selection rounded-full h-2.5">
-                                <div class="bg-dracula-purple h-2.5 rounded-full" style="width: <?php echo $percentage; ?>%"></div>
+                            <div class="w-full bg-dracula-selection rounded-full h-4">
+                                <div class="bg-dracula-purple h-4 rounded-full" style="width: <?php echo $percentage; ?>%"></div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
                 
                 <?php if ($hasVoted): ?>
-                    <div class="mt-6">
+                    <div class="mt-6 p-3 bg-dracula-green/10 border-l-4 border-dracula-green rounded">
                         <p class="text-dracula-green">You have already voted in this poll.</p>
                     </div>
                 <?php endif; ?>

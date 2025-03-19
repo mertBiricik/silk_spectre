@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Admin Login - Silk Spectre</title>
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
@@ -75,21 +75,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             red: '#ff5555',
                             yellow: '#f1fa8c',
                         }
+                    },
+                    screens: {
+                        'xs': '480px',
+                        // Default Tailwind breakpoints
+                        'sm': '640px',
+                        'md': '768px',
+                        'lg': '1024px',
+                        'xl': '1280px',
+                        '2xl': '1536px',
                     }
                 }
             }
         }
     </script>
+    <!-- Mobile Optimization -->
+    <style>
+        /* Tap highlight color */
+        * {
+            -webkit-tap-highlight-color: rgba(189, 147, 249, 0.2);
+        }
+        
+        /* Better touch targets for mobile */
+        button, a, input[type="radio"], input[type="checkbox"] {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        /* Adjust form control heights for mobile */
+        @media (max-width: 640px) {
+            input[type="text"], input[type="password"], input[type="email"], 
+            textarea, select {
+                font-size: 16px; /* Prevents iOS zoom on focus */
+            }
+        }
+    </style>
 </head>
-<body class="bg-dracula-bg text-dracula-foreground min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md p-8 bg-dracula-currentLine rounded-lg shadow-lg">
+<body class="bg-dracula-bg text-dracula-foreground min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md p-6 sm:p-8 bg-dracula-currentLine rounded-lg shadow-lg">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-dracula-purple">Silk Spectre</h1>
-            <p class="text-dracula-comment mt-2">Admin Login</p>
+            <div class="flex items-center justify-center mb-4">
+                <span class="text-4xl mr-2">📊</span>
+                <h1 class="text-2xl sm:text-3xl font-bold text-dracula-purple">Silk Spectre</h1>
+            </div>
+            <p class="text-dracula-comment">Admin Login</p>
         </div>
         
         <?php if ($message): ?>
-            <div class="bg-dracula-blue bg-opacity-20 border-l-4 border-dracula-cyan text-dracula-cyan p-4 mb-6" role="alert">
+            <div class="bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-green p-4 mb-6" role="alert">
                 <p><?php echo htmlspecialchars($message); ?></p>
             </div>
         <?php endif; ?>
@@ -100,22 +133,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
         
-        <form method="POST" action="">
-            <div class="mb-4">
+        <form method="POST" action="" class="space-y-5">
+            <div>
                 <label for="username" class="block text-dracula-cyan text-sm font-bold mb-2">Username</label>
-                <input type="text" name="username" id="username" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-2 px-3 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" required>
+                <input type="text" name="username" id="username" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-3 px-4 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" required>
             </div>
             
-            <div class="mb-6">
+            <div>
                 <label for="password" class="block text-dracula-cyan text-sm font-bold mb-2">Password</label>
-                <input type="password" name="password" id="password" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-2 px-3 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" required>
+                <input type="password" name="password" id="password" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-3 px-4 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" required>
             </div>
             
-            <div class="flex items-center justify-between">
-                <button type="submit" class="bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-2 px-4 rounded focus:outline-none transition-colors">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                <button type="submit" class="w-full sm:w-auto bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-3 px-6 rounded focus:outline-none transition-colors">
                     Sign In
                 </button>
-                <a href="../index.php" class="inline-block align-baseline font-bold text-sm text-dracula-cyan hover:text-dracula-green">
+                <a href="../index.php" class="w-full sm:w-auto text-center bg-dracula-comment hover:bg-dracula-selection text-dracula-foreground font-bold py-3 px-6 rounded focus:outline-none transition-colors">
                     Back to Polls
                 </a>
             </div>

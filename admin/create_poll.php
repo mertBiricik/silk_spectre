@@ -67,7 +67,7 @@ include_once 'admin_header.php';
 ?>
 
 <div class="mb-6">
-    <h1 class="text-3xl font-bold text-dracula-pink mb-2">Create New Poll</h1>
+    <h1 class="text-2xl sm:text-3xl font-bold text-dracula-pink mb-2">Create New Poll</h1>
     <p class="text-dracula-comment">Create a new poll for your audience</p>
 </div>
 
@@ -77,50 +77,50 @@ include_once 'admin_header.php';
     </div>
 <?php endif; ?>
 
-<div class="bg-dracula-currentLine shadow-md rounded-lg p-6">
-    <form method="POST" action="" id="pollForm">
-        <div class="mb-4">
+<div class="bg-dracula-currentLine shadow-md rounded-lg p-4 sm:p-6">
+    <form method="POST" action="" id="pollForm" class="space-y-4">
+        <div>
             <label for="title" class="block text-dracula-cyan text-sm font-bold mb-2">Poll Title</label>
-            <input type="text" name="title" id="title" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-2 px-3 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" required>
+            <input type="text" name="title" id="title" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-3 px-4 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" required>
         </div>
         
-        <div class="mb-4">
+        <div>
             <label for="description" class="block text-dracula-cyan text-sm font-bold mb-2">Description (Optional)</label>
-            <textarea name="description" id="description" rows="3" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-2 px-3 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple"></textarea>
+            <textarea name="description" id="description" rows="3" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-3 px-4 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple"></textarea>
         </div>
         
-        <div class="mb-6">
+        <div>
             <label class="block text-dracula-cyan text-sm font-bold mb-2">Poll Options</label>
             <p class="text-sm text-dracula-comment mb-2">Add at least two options for your poll</p>
             
-            <div id="optionsContainer">
-                <div class="mb-2 flex items-center">
-                    <input type="text" name="options[]" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-2 px-3 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" placeholder="Option 1" required>
+            <div id="optionsContainer" class="space-y-3">
+                <div class="flex items-center">
+                    <input type="text" name="options[]" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-3 px-4 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" placeholder="Option 1" required>
                 </div>
-                <div class="mb-2 flex items-center">
-                    <input type="text" name="options[]" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-2 px-3 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" placeholder="Option 2" required>
+                <div class="flex items-center">
+                    <input type="text" name="options[]" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-3 px-4 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" placeholder="Option 2" required>
                 </div>
             </div>
             
-            <button type="button" id="addOption" class="mt-2 bg-dracula-comment hover:bg-dracula-selection text-dracula-foreground font-bold py-2 px-4 rounded focus:outline-none transition-colors">
+            <button type="button" id="addOption" class="mt-4 bg-dracula-comment hover:bg-dracula-selection text-dracula-foreground font-bold py-3 px-4 rounded focus:outline-none transition-colors w-full sm:w-auto">
                 Add Option
             </button>
         </div>
         
-        <div class="mb-6">
+        <div>
             <div class="flex items-center">
-                <input type="checkbox" id="make_active" name="make_active" class="h-4 w-4 text-dracula-purple focus:ring-dracula-purple border-dracula-selection rounded">
-                <label for="make_active" class="ml-2 block text-dracula-cyan">
+                <input type="checkbox" id="make_active" name="make_active" class="h-5 w-5 text-dracula-purple focus:ring-dracula-purple border-dracula-selection rounded">
+                <label for="make_active" class="ml-3 block text-dracula-cyan text-sm">
                     Make this the active poll (will deactivate any currently active poll)
                 </label>
             </div>
         </div>
         
-        <div class="flex items-center justify-between">
-            <button type="submit" class="bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-2 px-4 rounded focus:outline-none transition-colors">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <button type="submit" class="w-full sm:w-auto bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-3 px-6 rounded focus:outline-none transition-colors">
                 Create Poll
             </button>
-            <a href="index.php" class="inline-block align-baseline font-bold text-sm text-dracula-cyan hover:text-dracula-green">
+            <a href="index.php" class="w-full sm:w-auto text-center bg-dracula-comment hover:bg-dracula-selection text-dracula-foreground font-bold py-3 px-6 rounded focus:outline-none transition-colors">
                 Cancel
             </a>
         </div>
@@ -136,10 +136,10 @@ include_once 'admin_header.php';
         addOptionButton.addEventListener('click', function() {
             optionCount++;
             const optionDiv = document.createElement('div');
-            optionDiv.className = 'mb-2 flex items-center';
+            optionDiv.className = 'flex items-center';
             optionDiv.innerHTML = `
-                <input type="text" name="options[]" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-2 px-3 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" placeholder="Option ${optionCount}" required>
-                <button type="button" class="ml-2 bg-dracula-red hover:bg-dracula-red/80 text-dracula-bg font-bold py-1 px-2 rounded focus:outline-none delete-option transition-colors">
+                <input type="text" name="options[]" class="shadow appearance-none bg-dracula-bg border border-dracula-selection rounded w-full py-3 px-4 text-dracula-foreground leading-tight focus:outline-none focus:border-dracula-purple" placeholder="Option ${optionCount}" required>
+                <button type="button" class="ml-2 bg-dracula-red hover:bg-dracula-red/80 text-dracula-bg font-bold py-2 px-3 rounded focus:outline-none delete-option transition-colors">
                     &times;
                 </button>
             `;
@@ -155,6 +155,6 @@ include_once 'admin_header.php';
 </script>
 
 <?php
-// Include admin footer
-include_once 'admin_footer.php';
+// Include footer
+include_once '../includes/footer.php';
 ?> 

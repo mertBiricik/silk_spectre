@@ -90,7 +90,11 @@ include_once 'admin_header.php';
     </div>
 </div>
 
-<?php if (isset($message)): ?>
+<?php if (isset($_GET['message']) && $_GET['message'] === 'Poll created successfully'): ?>
+    <div class="bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-bg p-4 mb-6" role="alert">
+        <p><?php echo htmlspecialchars($_GET['message']); ?></p>
+    </div>
+<?php elseif (isset($message)): ?>
     <div class="bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-green p-4 mb-6" role="alert">
         <p><?php echo $message; ?></p>
     </div>

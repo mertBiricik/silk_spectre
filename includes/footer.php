@@ -1,14 +1,14 @@
     </main>
-    <footer class="bg-dracula-currentLine text-dracula-foreground">
-        <div class="container-custom py-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <p>&copy; <?php echo date('Y'); ?> Silk Spectre. All rights reserved.</p>
+    <footer class="bg-dracula-currentLine py-6 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between">
+                <div class="mb-4 sm:mb-0 text-center sm:text-left">
+                    <p class="text-dracula-comment">&copy; <?php echo date('Y'); ?> Silk Spectre Polling System</p>
                 </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="hover:text-dracula-cyan">About</a>
-                    <a href="#" class="hover:text-dracula-cyan">Privacy</a>
-                    <a href="#" class="hover:text-dracula-cyan">Terms</a>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#" class="text-dracula-cyan hover:text-dracula-pink transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-dracula-cyan hover:text-dracula-pink transition-colors duration-300">Terms of Service</a>
+                    <a href="#" class="text-dracula-cyan hover:text-dracula-pink transition-colors duration-300">Contact Us</a>
                 </div>
             </div>
         </div>
