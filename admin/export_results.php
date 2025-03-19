@@ -1,6 +1,7 @@
 <?php
-session_start();
-require_once '../includes/database.php';
+require_once '../includes/session.php';
+require_once '../includes/config.php';
+require_once '../includes/db.php';
 
 // Check if the admin is logged in
 if (!isset($_SESSION['admin_id'])) {
@@ -40,11 +41,11 @@ $options = $stmt->fetchAll();
 
 // Get voter details
 $stmt = $pdo->prepare("
-    SELECT v.id, v.voter_name, v.voter_email, v.ip_address, v.voted_at, o.option_text, o.id as option_id
+    SELECT v.id, v.voter_ip as ip_address, v.created_at as voted_at, o.option_text, o.id as option_id
     FROM votes v
     JOIN options o ON v.option_id = o.id
     WHERE o.poll_id = ?
-    ORDER BY v.voted_at DESC
+    ORDER BY v.created_at DESC
 ");
 $stmt->execute([$pollId]);
 $voters = $stmt->fetchAll();
@@ -93,15 +94,13 @@ if ($exportType === 'full') {
     
     // Add individual votes
     fputcsv($output, ['Individual Votes']);
-    fputcsv($output, ['ID', 'Name', 'Email', 'Option Selected', 'IP Address', 'Date/Time']);
+    fputcsv($output, ['ID', 'IP Address', 'Option Selected', 'Date/Time']);
     
     foreach ($voters as $voter) {
         fputcsv($output, [
             $voter['id'],
-            $voter['voter_name'] ?: 'Anonymous',
-            $voter['voter_email'] ?: 'N/A',
-            $voter['option_text'],
             $voter['ip_address'],
+            $voter['option_text'],
             $voter['voted_at']
         ]);
     }

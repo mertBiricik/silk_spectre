@@ -6,6 +6,8 @@
     <title>Silk Spectre Polling System</title>
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+    <!-- Alpine.js (before Tailwind to prevent FOUC) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
     <!-- Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Dracula theme config -->
@@ -37,6 +39,42 @@
                         'lg': '1024px',
                         'xl': '1280px',
                         '2xl': '1536px',
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        fadeOut: {
+                            '0%': { opacity: '1' },
+                            '100%': { opacity: '0' }
+                        },
+                        pulse: {
+                            '0%, 100%': {
+                                opacity: '1'
+                            },
+                            '50%': {
+                                opacity: '0.5'
+                            }
+                        },
+                        spin: {
+                            '0%': {
+                                transform: 'rotate(0deg)'
+                            },
+                            '100%': {
+                                transform: 'rotate(360deg)'
+                            }
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.3s ease-in-out',
+                        'fade-out': 'fadeOut 0.3s ease-in-out',
+                        'pulse': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin': 'spin 1s linear infinite'
                     }
                 }
             }
@@ -78,10 +116,63 @@
                 font-size: 16px; /* Prevents iOS zoom on focus */
             }
         }
+
+        /* Page transition styles */
+        .page-transition {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        /* Loading animation */
+        .dots-loading {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .dots-loading div {
+            position: absolute;
+            top: 33px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #bd93f9;
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+        .dots-loading div:nth-child(1) {
+            left: 8px;
+            animation: dots1 0.6s infinite;
+        }
+        .dots-loading div:nth-child(2) {
+            left: 8px;
+            animation: dots2 0.6s infinite;
+        }
+        .dots-loading div:nth-child(3) {
+            left: 32px;
+            animation: dots2 0.6s infinite;
+        }
+        .dots-loading div:nth-child(4) {
+            left: 56px;
+            animation: dots3 0.6s infinite;
+        }
+        @keyframes dots1 {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+        @keyframes dots3 {
+            0% { transform: scale(1); }
+            100% { transform: scale(0); }
+        }
+        @keyframes dots2 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(24px, 0); }
+        }
     </style>
 </head>
-<body class="bg-dracula-bg text-dracula-foreground min-h-screen flex flex-col">
-    <header class="bg-dracula-currentLine shadow-md">
+<body class="bg-dracula-bg text-dracula-foreground min-h-screen flex flex-col" 
+      x-data="{ pageLoaded: false }" 
+      x-init="setTimeout(() => pageLoaded = true, 100)" 
+      :class="{'opacity-0': !pageLoaded, 'opacity-100 transition-opacity duration-500': pageLoaded}">
+    <header class="bg-dracula-currentLine shadow-md rounded-b-lg">
         <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between">
             <div class="flex items-center mb-4 sm:mb-0">
                 <span class="text-3xl mr-2">📊</span>
@@ -92,7 +183,7 @@
             <nav>
                 <ul class="flex flex-wrap justify-center items-center space-x-1 sm:space-x-4">
                     <li>
-                        <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') !== false) ? '../' : ''; ?>index.php" class="px-3 py-2 rounded hover:bg-dracula-selection transition-colors duration-300 flex items-center">
+                        <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') !== false) ? '../' : ''; ?>index.php" class="px-3 py-2 rounded-lg hover:bg-dracula-selection transition-colors duration-300 flex items-center">
                             <span>Polls</span>
                         </a>
                     </li>
@@ -101,19 +192,19 @@
                             <span class="text-dracula-comment">|</span>
                         </li>
                         <li>
-                            <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') === false) ? 'admin/' : ''; ?>index.php" class="px-3 py-2 rounded hover:bg-dracula-selection transition-colors duration-300 flex items-center">
+                            <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') === false) ? 'admin/' : ''; ?>index.php" class="px-3 py-2 rounded-lg hover:bg-dracula-selection transition-colors duration-300 flex items-center">
                                 <span>Admin</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') === false) ? 'admin/' : ''; ?>logout.php" class="px-3 py-2 rounded hover:bg-dracula-selection transition-colors duration-300 flex items-center">
+                            <a href="<?php echo (strpos($_SERVER['PHP_SELF'], 'admin/') === false) ? 'admin/' : ''; ?>logout.php" class="px-3 py-2 rounded-lg hover:bg-dracula-selection transition-colors duration-300 flex items-center">
                                 <span>Logout</span>
                             </a>
                         </li>
                     <?php else: ?>
                         <?php if (strpos($_SERVER['PHP_SELF'], 'admin/') === false): ?>
                             <li>
-                                <a href="admin/login.php" class="px-3 py-2 rounded hover:bg-dracula-selection transition-colors duration-300 flex items-center">
+                                <a href="admin/login.php" class="px-3 py-2 rounded-lg hover:bg-dracula-selection transition-colors duration-300 flex items-center">
                                     <span>Admin Login</span>
                                 </a>
                             </li>
@@ -123,7 +214,7 @@
             </nav>
         </div>
     </header>
-    <main class="container mx-auto px-4 py-6 flex-grow">
+    <main class="container mx-auto px-4 py-6 flex-grow animate-fade-in">
     <!-- Main content starts here -->
     <?php if(isset($message)): ?>
         <div class="bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-green p-4 mb-6" role="alert">

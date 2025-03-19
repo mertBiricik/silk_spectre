@@ -1,30 +1,33 @@
     </main>
-    <footer class="bg-dracula-currentLine py-6 mt-auto">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col sm:flex-row items-center justify-between">
-                <div class="mb-4 sm:mb-0 text-center sm:text-left">
-                    <p class="text-dracula-comment">&copy; <?php echo date('Y'); ?> Silk Spectre Polling System</p>
-                </div>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="#" class="text-dracula-cyan hover:text-dracula-pink transition-colors duration-300">Privacy Policy</a>
-                    <a href="#" class="text-dracula-cyan hover:text-dracula-pink transition-colors duration-300">Terms of Service</a>
-                    <a href="#" class="text-dracula-cyan hover:text-dracula-pink transition-colors duration-300">Contact Us</a>
-                </div>
-            </div>
+    <footer class="bg-dracula-currentLine py-4 mt-8 rounded-t-lg">
+        <div class="container mx-auto px-4 text-center text-dracula-comment">
+            <p>&copy; <?php echo date('Y'); ?> Silk Spectre Polling System</p>
         </div>
     </footer>
+
+    <!-- Page transition script -->
     <script>
-        // JavaScript for interactive elements can be added here
-        document.addEventListener('DOMContentLoaded', function() {
-            // Close alert messages when the close button is clicked
-            const alerts = document.querySelectorAll('[role="alert"]');
-            alerts.forEach(alert => {
-                setTimeout(() => {
-                    alert.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+        // Handle link clicks for page transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            const isInternalLink = (href) => {
+                return href && (
+                    href.startsWith(window.location.origin) || 
+                    (href.startsWith('/') && !href.startsWith('//')) ||
+                    (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('//'))
+                );
+            };
+
+            document.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (link && isInternalLink(link.href) && !link.target && !link.hasAttribute('download') && !e.ctrlKey && !e.metaKey) {
+                    e.preventDefault();
+                    document.body.classList.add('opacity-0');
+                    document.body.classList.remove('opacity-100');
+                    
                     setTimeout(() => {
-                        alert.remove();
-                    }, 500);
-                }, 5000);
+                        window.location.href = link.href;
+                    }, 300); // Match the transition duration
+                }
             });
         });
     </script>
