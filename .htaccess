@@ -1,0 +1,60 @@
+# Protect the .htaccess file
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protect database connection file and other sensitive files
+<FilesMatch "(database\.php|setup_db\.php|server\.php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Enable rewriting
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Prevent direct access to the includes directory
+    RewriteRule ^includes/ - [F,L]
+    
+    # If a directory or a file exists, use it directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Allow PHP files to be accessed without the .php extension
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $1.php [L]
+</IfModule>
+
+# PHP settings
+<IfModule mod_php7.c>
+    # Set error reporting level
+    php_flag display_errors Off
+    php_flag log_errors On
+    
+    # Set maximum execution time
+    php_value max_execution_time 30
+    
+    # Set maximum upload size
+    php_value upload_max_filesize 2M
+    php_value post_max_size 8M
+    
+    # Disable register globals
+    php_flag register_globals Off
+</IfModule>
+
+# Content security policy
+<IfModule mod_headers.c>
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; img-src 'self' data:; font-src 'self';"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Custom 404 error page
+ErrorDocument 404 /index.php 
