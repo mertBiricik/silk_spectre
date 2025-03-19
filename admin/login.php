@@ -3,11 +3,17 @@ session_start();
 require_once '../includes/database.php';
 
 $error = '';
+$message = '';
 
 // Check if already logged in
 if (isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit;
+}
+
+// Check for message parameter
+if (isset($_GET['message'])) {
+    $message = $_GET['message'];
 }
 
 // Process login form
@@ -81,6 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1 class="text-3xl font-bold text-dracula-purple">Silk Spectre</h1>
             <p class="text-dracula-comment mt-2">Admin Login</p>
         </div>
+        
+        <?php if ($message): ?>
+            <div class="bg-dracula-blue bg-opacity-20 border-l-4 border-dracula-cyan text-dracula-cyan p-4 mb-6" role="alert">
+                <p><?php echo htmlspecialchars($message); ?></p>
+            </div>
+        <?php endif; ?>
         
         <?php if ($error): ?>
             <div class="bg-dracula-red bg-opacity-20 border-l-4 border-dracula-red text-dracula-red p-4 mb-6" role="alert">

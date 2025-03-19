@@ -58,8 +58,8 @@ if (!$poll) {
     $stmt->execute([$pollId, $voterIp]);
     $hasVoted = ($stmt->fetch()['voted'] > 0);
     
-    // Process vote submission
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['option']) && !$hasVoted) {
+    // Process vote submission - only allow voting if poll is active
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['option']) && !$hasVoted && $poll['is_active']) {
         $optionId = (int)$_POST['option'];
         
         // Verify the option belongs to this poll
@@ -78,7 +78,6 @@ if (!$poll) {
                 // Refresh the page to show results
                 header("Location: view_poll.php?id=$pollId&message=Your vote has been recorded!");
                 exit;
-                
             } catch (PDOException $e) {
                 $error = 'Error recording vote: ' . $e->getMessage();
             }
@@ -86,123 +85,109 @@ if (!$poll) {
             $error = 'Invalid option selected';
         }
     }
-    
-    // If we have results but no cached data, get the results
-    if ($hasVoted && empty($results)) {
-        $stmt = $pdo->prepare("
-            SELECT o.id, o.option_text, COUNT(v.id) as vote_count 
-            FROM options o
-            LEFT JOIN votes v ON o.id = v.option_id
-            WHERE o.poll_id = ?
-            GROUP BY o.id
-            ORDER BY vote_count DESC
-        ");
-        $stmt->execute([$pollId]);
-        $results = $stmt->fetchAll();
-        
-        // Get updated total votes
-        $stmt = $pdo->prepare("SELECT COUNT(*) as total FROM votes WHERE poll_id = ?");
-        $stmt->execute([$pollId]);
-        $totalVotes = $stmt->fetch()['total'];
-    }
 }
 
 // Include header
 include_once 'includes/header.php';
 ?>
 
-<?php if ($error && $error === 'Poll not found'): ?>
-    <div class="bg-dracula-currentLine shadow-md rounded-lg p-6 text-center">
-        <h2 class="text-2xl font-bold text-dracula-red mb-4">Poll Not Found</h2>
-        <p class="text-dracula-foreground mb-6">The poll you're looking for doesn't exist or has been removed.</p>
-        <a href="index.php" class="bg-dracula-purple text-dracula-bg px-4 py-2 rounded hover:bg-dracula-pink">Back to Polls</a>
-    </div>
-<?php elseif ($poll): ?>
-    <div class="mb-6">
-        <h1 class="text-3xl font-bold text-dracula-pink mb-2"><?php echo htmlspecialchars($poll['title']); ?></h1>
-        <?php if (!empty($poll['description'])): ?>
-            <p class="text-dracula-foreground"><?php echo htmlspecialchars($poll['description']); ?></p>
-        <?php endif; ?>
-        <div class="mt-2 text-sm text-dracula-comment">
-            Created: <?php echo date('F j, Y, g:i a', strtotime($poll['created_at'])); ?>
+<div class="mb-6">
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-dracula-pink mb-2"><?php echo $poll ? htmlspecialchars($poll['title']) : 'Poll Not Found'; ?></h1>
+            <?php if ($poll && !empty($poll['description'])): ?>
+                <p class="text-dracula-comment"><?php echo htmlspecialchars($poll['description']); ?></p>
+            <?php endif; ?>
         </div>
+        <a href="index.php" class="bg-dracula-comment hover:bg-dracula-selection text-dracula-foreground px-3 py-1 rounded text-sm">
+            Back to Polls
+        </a>
     </div>
-    
-    <div class="bg-dracula-currentLine shadow-md rounded-lg overflow-hidden">
-        <?php if (!$hasVoted): ?>
-            <!-- Voting Form -->
-            <div class="p-6">
+</div>
+
+<?php if ($message): ?>
+    <div class="bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-green p-4 mb-6" role="alert">
+        <p><?php echo htmlspecialchars($message); ?></p>
+    </div>
+<?php endif; ?>
+
+<?php if ($error): ?>
+    <div class="bg-dracula-red bg-opacity-20 border-l-4 border-dracula-red text-dracula-red p-4 mb-6" role="alert">
+        <p><?php echo htmlspecialchars($error); ?></p>
+    </div>
+<?php endif; ?>
+
+<?php if ($poll): ?>
+    <div class="bg-dracula-currentLine shadow-md rounded-lg p-6">
+        <?php if (!$poll['is_active']): ?>
+            <div class="bg-dracula-comment bg-opacity-20 border-l-4 border-dracula-comment text-dracula-comment p-4 mb-6" role="alert">
+                <p>This poll is no longer active. You can view the results below.</p>
+            </div>
+        <?php endif; ?>
+        
+        <?php if (!$hasVoted && $poll['is_active']): ?>
+            <!-- Vote Form -->
+            <form method="POST" action="">
                 <h2 class="text-xl font-semibold text-dracula-cyan mb-4">Cast Your Vote</h2>
-                <form method="POST" action="">
-                    <div class="space-y-3">
+                
+                <?php if (!empty($options)): ?>
+                    <div class="space-y-3 mb-6">
                         <?php foreach ($options as $option): ?>
                             <div class="flex items-center">
-                                <input type="radio" id="option_<?php echo $option['id']; ?>" name="option" value="<?php echo $option['id']; ?>" class="h-4 w-4 text-dracula-purple focus:ring-dracula-purple border-dracula-selection rounded">
-                                <label for="option_<?php echo $option['id']; ?>" class="ml-3 block text-dracula-foreground">
+                                <input type="radio" id="option-<?php echo $option['id']; ?>" name="option" value="<?php echo $option['id']; ?>" class="h-4 w-4 text-dracula-purple focus:ring-dracula-pink border-dracula-selection">
+                                <label for="option-<?php echo $option['id']; ?>" class="ml-3 block text-dracula-foreground">
                                     <?php echo htmlspecialchars($option['option_text']); ?>
                                 </label>
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <div class="mt-6">
-                        <button type="submit" class="w-full bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-2 px-4 rounded focus:outline-none">
-                            Submit Vote
-                        </button>
-                    </div>
-                </form>
-            </div>
+                    
+                    <button type="submit" class="bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-2 px-4 rounded transition-colors">
+                        Submit Vote
+                    </button>
+                <?php else: ?>
+                    <p class="text-dracula-comment">No options available for this poll.</p>
+                <?php endif; ?>
+            </form>
         <?php else: ?>
-            <!-- Results Display -->
-            <div class="p-6">
-                <h2 class="text-xl font-semibold text-dracula-cyan mb-4">Poll Results</h2>
-                <div class="mb-2 text-dracula-comment">Total votes: <?php echo $totalVotes; ?></div>
+            <!-- Results Section -->
+            <h2 class="text-xl font-semibold text-dracula-cyan mb-4">Poll Results</h2>
+            
+            <?php if ($totalVotes > 0): ?>
+                <p class="text-dracula-comment mb-4">Total votes: <?php echo $totalVotes; ?></p>
+                
                 <div class="space-y-4">
-                    <?php foreach ($results as $result): 
-                        $percentage = ($totalVotes > 0) ? round(($result['vote_count'] / $totalVotes) * 100) : 0;
-                    ?>
+                    <?php foreach ($results as $result): ?>
+                        <?php 
+                            $percentage = ($result['vote_count'] / $totalVotes) * 100;
+                            $percentage = round($percentage, 1);
+                        ?>
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="text-dracula-foreground"><?php echo htmlspecialchars($result['option_text']); ?></span>
-                                <span class="text-dracula-foreground"><?php echo $result['vote_count']; ?> votes (<?php echo $percentage; ?>%)</span>
+                                <span class="text-dracula-foreground">
+                                    <?php echo htmlspecialchars($result['option_text']); ?>
+                                </span>
+                                <span class="text-dracula-purple">
+                                    <?php echo $result['vote_count']; ?> votes (<?php echo $percentage; ?>%)
+                                </span>
                             </div>
-                            <div class="w-full bg-dracula-selection rounded-full h-4">
-                                <div class="bg-dracula-purple h-4 rounded-full" style="width: <?php echo $percentage; ?>%"></div>
+                            <div class="w-full bg-dracula-selection rounded-full h-2.5">
+                                <div class="bg-dracula-purple h-2.5 rounded-full" style="width: <?php echo $percentage; ?>%"></div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
-            </div>
+                
+                <?php if ($hasVoted): ?>
+                    <div class="mt-6">
+                        <p class="text-dracula-green">You have already voted in this poll.</p>
+                    </div>
+                <?php endif; ?>
+            <?php else: ?>
+                <p class="text-dracula-comment">No votes have been cast yet.</p>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
-    
-    <div class="mt-6 flex justify-between">
-        <a href="index.php" class="bg-dracula-comment hover:bg-dracula-selection text-dracula-foreground font-bold py-2 px-4 rounded focus:outline-none">
-            Back to Polls
-        </a>
-        <div class="flex space-x-2">
-            <button class="bg-dracula-purple hover:bg-dracula-pink text-dracula-bg font-bold py-2 px-4 rounded focus:outline-none" onclick="sharePoll()">
-                Share Poll
-            </button>
-        </div>
-    </div>
-    
-    <script>
-        function sharePoll() {
-            const pollUrl = window.location.href.split('?')[0] + '?id=<?php echo $pollId; ?>';
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: '<?php echo addslashes(htmlspecialchars($poll['title'])); ?>',
-                    text: 'Check out this poll: <?php echo addslashes(htmlspecialchars($poll['title'])); ?>',
-                    url: pollUrl
-                })
-                .catch(error => console.log('Error sharing:', error));
-            } else {
-                // Fallback for browsers that don't support the Web Share API
-                prompt('Copy this link to share the poll:', pollUrl);
-            }
-        }
-    </script>
 <?php endif; ?>
 
 <?php
