@@ -214,6 +214,18 @@ $prevent_auto_message = false;
                 </div>
             </a>
             
+            <a href="manage_sequences.php" class="group bg-dracula-selection bg-opacity-30 p-4 rounded-lg flex items-center transform transition-transform duration-300 hover:translate-x-2">
+                <div class="bg-dracula-green text-dracula-bg p-3 rounded-lg mr-4 group-hover:bg-dracula-pink transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-medium text-dracula-foreground">Manage Poll Sequences</h3>
+                    <p class="text-sm text-dracula-comment">Configure sequential polls with branching logic</p>
+                </div>
+            </a>
+            
             <a href="export.php" class="group bg-dracula-selection bg-opacity-30 p-4 rounded-lg flex items-center transform transition-transform duration-300 hover:translate-x-2">
                 <div class="bg-dracula-cyan text-dracula-bg p-3 rounded-lg mr-4 group-hover:bg-dracula-pink transition-colors duration-300">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

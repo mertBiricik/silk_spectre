@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poll System Admin</title>
+    <!-- Alpine.js - fully qualified URL and specific version -->
+    <script defer src="https://unpkg.com/alpinejs@3.12.0/dist/cdn.min.js"></script>
+    <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         /* Dracula Theme Colors */
@@ -69,15 +72,18 @@
         
         /* Custom Styles */
         .nav-link {
-            @apply px-4 py-2 rounded transition-colors;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s;
         }
         
         .nav-link:hover {
-            @apply bg-dracula-selection;
+            background-color: var(--dracula-selection);
         }
         
         .nav-link.active {
-            @apply bg-dracula-selection text-dracula-pink;
+            background-color: var(--dracula-selection);
+            color: var(--dracula-pink);
         }
     </style>
 </head>
@@ -114,4 +120,12 @@
     </header>
     
     <main class="container mx-auto px-4 py-6">
+        <!-- Small Alpine.js test component -->
+        <div x-data="{ alpineLoaded: true }" class="hidden">
+            <span x-show="alpineLoaded">Alpine.js is working</span>
+        </div>
+        
         <!-- Main content will be inserted here --> 
+    </main>
+</body>
+</html> 
