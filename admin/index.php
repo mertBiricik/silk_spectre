@@ -26,7 +26,11 @@ if (isset($_GET['message'])) {
 $polls_stmt = $pdo->query("SELECT * FROM polls ORDER BY is_active DESC, created_at DESC");
 $polls = $polls_stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Load header but prevent automatic display of message from the URL parameter
+$prevent_auto_message = true;
 include '../includes/header.php';
+// Reset the variable after header inclusion
+$prevent_auto_message = false;
 ?>
 
 <div class="mb-6">
@@ -56,7 +60,7 @@ include '../includes/header.php';
          x-transition:leave="transition ease-in duration-300"
          x-transition:leave-start="opacity-100 transform scale-100"
          x-transition:leave-end="opacity-0 transform scale-90"
-         class="<?php if (strpos($message, 'Poll created successfully') !== false): ?>bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-black<?php else: ?>bg-dracula-purple bg-opacity-20 border-l-4 border-dracula-purple text-dracula-foreground<?php endif; ?> p-4 mb-6 rounded-lg shadow-md">
+         class="<?php if (strpos($message, 'Poll created successfully') !== false): ?>bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-foreground<?php else: ?>bg-dracula-purple bg-opacity-20 border-l-4 border-dracula-purple text-dracula-foreground<?php endif; ?> p-4 mb-6 rounded-lg shadow-md">
         <div class="flex items-center">
             <svg class="w-6 h-6 mr-2 <?php echo (strpos($message, 'Poll created successfully') !== false) ? 'text-dracula-green' : 'text-dracula-purple'; ?>" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>

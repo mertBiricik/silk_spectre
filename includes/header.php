@@ -216,12 +216,12 @@
     </header>
     <main class="container mx-auto px-4 py-6 flex-grow animate-fade-in">
     <!-- Main content starts here -->
-    <?php if(isset($message)): ?>
+    <?php if(isset($message) && !empty($message) && (!isset($prevent_auto_message) || $prevent_auto_message !== true)): ?>
         <div class="bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-green p-4 mb-6" role="alert">
             <p><?php echo $message; ?></p>
         </div>
     <?php endif; ?>
-    <?php if(isset($error)): ?>
+    <?php if(isset($error) && !empty($error) && (!isset($prevent_auto_message) || $prevent_auto_message !== true)): ?>
         <div class="bg-dracula-red bg-opacity-20 border-l-4 border-dracula-red text-dracula-red p-4 mb-6" role="alert">
             <p><?php echo $error; ?></p>
         </div>
