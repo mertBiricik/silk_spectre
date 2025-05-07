@@ -2,6 +2,16 @@
 
 A PHP-based polling application that supports sequential polls with branching logic and timed transitions.
 
+## Overview
+
+The Sequential Polling System allows administrators to create complex polling sequences where the next poll shown to a user can depend on their answer to the previous one. It supports timed transitions, a mobile-friendly interface, and provides an admin dashboard for managing polls and viewing results.
+
+**Key Technologies:**
+- PHP
+- MySQL
+- Tailwind CSS (for styling)
+- Alpine.js (for client-side interactivity)
+
 ## Features
 
 - **Sequential Polls**: Create sequences of polls that automatically transition from one to the next
@@ -11,35 +21,83 @@ A PHP-based polling application that supports sequential polls with branching lo
 - **Mobile-Friendly UI**: Clean, responsive design using Tailwind CSS and Alpine.js
 - **Results Export**: Export poll results to CSV for analysis
 
-## Installation
+## Prerequisites
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/sequential-polls.git
-   cd sequential-polls
-   ```
+- PHP (version 7.4 or higher recommended)
+- MySQL (or MariaDB)
+- A web server (like Apache or Nginx if not using the built-in PHP server for development)
+- Git (for cloning the repository)
 
-2. Set up your web server (Apache, Nginx, etc.) to point to the project directory
+## Installation and Setup
 
-3. Create a MySQL database for the application
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/sequential-polls.git
+    cd sequential-polls
+    ```
 
-4. Update the database configuration in `includes/config.php`
+2.  **Database Setup**:
+    *   Ensure your MySQL service is running. For systems using systemd (like many Linux distributions):
+        ```bash
+        sudo systemctl start mysql
+        # Or: sudo systemctl start mysqld
+        ```
+        On other systems, use the appropriate command (e.g., `brew services start mysql` on macOS with Homebrew).
+    *   Log in to your MySQL client:
+        ```bash
+        mysql -u root -p
+        ```
+    *   Create the database and user. Replace `'pollpassword'` with a secure password if desired (and update `includes/config.php` accordingly).
+        ```sql
+        CREATE DATABASE IF NOT EXISTS poll_app CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+        CREATE USER IF NOT EXISTS 'polluser'@'localhost' IDENTIFIED BY 'pollpassword';
+        GRANT ALL PRIVILEGES ON poll_app.* TO 'polluser'@'localhost';
+        FLUSH PRIVILEGES;
+        EXIT;
+        ```
 
-5. Run the installation script by visiting:
-   ```
-   http://your-domain.com/install.php
-   ```
+3.  **Configure Application**:
+    *   The default database configuration is in `includes/config.php`. It's set to use:
+        *   Host: `localhost`
+        *   Database: `poll_app`
+        *   User: `polluser`
+        *   Password: `pollpassword`
+    *   If you changed the database name, user, or password in the step above, update `includes/config.php` accordingly.
 
-6. After installation, delete the `install.php` file for security:
-   ```
-   rm install.php
-   ```
+4.  **Run Installation Script**:
+    *   Start the PHP development server (see "Running the Server" section below for more details).
+    *   Open your web browser and navigate to:
+        ```
+        http://localhost:8000/install.php
+        ```
+    *   This script will create the necessary tables in the `poll_app` database.
 
-7. Log in to the admin dashboard with the default credentials:
-   - Username: `admin`
-   - Password: `admin123`
-   
-   (Remember to change the default password immediately)
+5.  **Secure Installation**:
+    *   After the installation script completes successfully, **delete the `install.php` file** for security:
+        ```bash
+        rm install.php
+        ```
+
+6.  **Admin Access**:
+    *   Log in to the admin dashboard at `http://localhost:8000/admin/` with the default credentials:
+        *   Username: `admin`
+        *   Password: `admin123`
+    *   **Important**: Change the default admin password immediately after your first login.
+
+## Running the Server (Development)
+
+For development, you can use the built-in PHP server.
+
+1.  Ensure your MySQL service is running (see step 2 in Installation).
+2.  Navigate to the project root directory.
+3.  Start the server using the provided script:
+    ```bash
+    ./start_server.sh
+    ```
+    This script executes `php server.php`, which starts the server on `http://localhost:8000`.
+    Alternatively, you can run `php server.php` directly.
+
+    The application will be accessible at `http://localhost:8000`.
 
 ## Setting Up Sequential Polls
 
