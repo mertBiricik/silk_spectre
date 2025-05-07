@@ -120,7 +120,7 @@ if ($active_poll) {
     $options_stmt = $pdo->prepare("SELECT * FROM options WHERE poll_id = ? ORDER BY id ASC");
     $options_stmt->execute([$active_poll['id']]);
     $options = $options_stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     // Get vote counts for each option
     foreach ($options as &$option) {
         $vote_stmt = $pdo->prepare("SELECT COUNT(*) as count FROM votes WHERE option_id = ?");
@@ -128,7 +128,8 @@ if ($active_poll) {
         $vote_count = $vote_stmt->fetch(PDO::FETCH_ASSOC)['count'];
         $option['vote_count'] = $vote_count;
     }
-    
+    unset($option);
+
     // Calculate total votes and percentages
     $total_votes = 0;
     foreach ($options as $option) {
@@ -138,6 +139,7 @@ if ($active_poll) {
     foreach ($options as &$option) {
         $option['percentage'] = $total_votes > 0 ? round(($option['vote_count'] / $total_votes) * 100) : 0;
     }
+    unset($option);
     
     // Check if the current user has voted
     $voter_ip = $_SERVER['REMOTE_ADDR'];
@@ -260,7 +262,10 @@ include 'includes/header.php';
                     <input type="hidden" name="poll_id" value="<?php echo $active_poll['id']; ?>">
                     
                     <div class="space-y-4 mb-6">
-                        <?php foreach ($options as $option): ?>
+                        <?php 
+                        // echo '<pre>LOOP DEBUG: Entering options loop</pre>'; // Optional: uncomment for more verbose loop debug
+                        foreach ($options as $option): 
+                        ?>
                             <div class="flex items-center bg-dracula-selection bg-opacity-20 p-3 rounded-lg hover:bg-opacity-40 transition-colors cursor-pointer"
                                  @click="selectedOption = <?php echo $option['id']; ?>">
                                 <input type="radio" id="option-<?php echo $option['id']; ?>" name="option_id" 
