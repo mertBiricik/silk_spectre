@@ -1,0 +1,2 @@
+SELECT id, name, is_active FROM poll_sequences WHERE id = 1;
+SELECT id, sequence_id, title, sequence_position, start_time, end_time, is_active, is_results_visible FROM polls WHERE id = 1 AND sequence_id = 1; 
