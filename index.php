@@ -263,19 +263,20 @@ include 'includes/header.php';
                     
                     <div class="space-y-4 mb-6">
                         <?php 
-                        // echo '<pre>LOOP DEBUG: Entering options loop</pre>'; // Optional: uncomment for more verbose loop debug
-                        foreach ($options as $option): 
+                        // Using $index to alternate colors
+                        foreach ($options as $index => $option): 
+                            $bgColorClass = ($index % 2 == 0) ? 'bg-dracula-purple hover:bg-dracula-purple/80' : 'bg-dracula-red hover:bg-dracula-red/80';
+                            $textColorClass = 'text-dracula-foreground'; // Keep text color consistent for readability
+                            $borderColorClass = ($index % 2 == 0) ? 'border-dracula-purple/50' : 'border-dracula-red/50';
                         ?>
-                            <div class="flex items-center bg-dracula-selection bg-opacity-20 p-3 rounded-lg hover:bg-opacity-40 transition-colors cursor-pointer"
+                            <label for="option-<?php echo $option['id']; ?>" 
+                                 class="block w-full <?php echo $bgColorClass; ?> <?php echo $textColorClass; ?> border-2 <?php echo $borderColorClass; ?> rounded-lg p-4 text-center font-semibold shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-dracula-yellow"
                                  @click="selectedOption = <?php echo $option['id']; ?>">
                                 <input type="radio" id="option-<?php echo $option['id']; ?>" name="option_id" 
                                        value="<?php echo $option['id']; ?>" x-model="selectedOption"
-                                       class="h-5 w-5 text-dracula-purple focus:ring-dracula-pink border-dracula-selection">
-                                <label for="option-<?php echo $option['id']; ?>" 
-                                       class="ml-3 block text-dracula-foreground w-full cursor-pointer">
-                                    <?php echo htmlspecialchars($option['option_text']); ?>
-                                </label>
-                            </div>
+                                       class="sr-only"> <!-- Visually hide the radio button -->
+                                <?php echo htmlspecialchars($option['option_text']); ?>
+                            </label>
                         <?php endforeach; ?>
                     </div>
                     
