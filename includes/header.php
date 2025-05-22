@@ -17,18 +17,18 @@
                 extend: {
                     colors: {
                         dracula: {
-                            bg: '#282a36',
-                            currentLine: '#44475a',
-                            selection: '#44475a',
-                            foreground: '#f8f8f2',
-                            comment: '#6272a4',
-                            cyan: '#8be9fd',
-                            green: '#50fa7b',
-                            orange: '#ffb86c',
-                            pink: '#ff79c6',
-                            purple: '#bd93f9',
-                            red: '#ff5555',
-                            yellow: '#f1fa8c',
+                            bg: '#1F1F1F',
+                            currentLine: '#2B2B2B',
+                            selection: '#4A4A4A',
+                            foreground: '#D1D1D1',
+                            comment: '#6B5B95',
+                            cyan: '#76D7C4',
+                            green: '#5E8B7E',
+                            orange: '#D8A7B1',
+                            pink: '#C3447A',
+                            purple: '#5D9B9B',
+                            red: '#A93226',
+                            yellow: '#B08D57',
                         }
                     },
                     screens: {

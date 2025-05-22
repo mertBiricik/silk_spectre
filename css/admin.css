@@ -1,17 +1,17 @@
 /* Dracula Theme Colors */
 :root {
-    --dracula-bg: #282a36;
-    --dracula-currentLine: #44475a;
-    --dracula-selection: #44475a;
-    --dracula-foreground: #f8f8f2;
-    --dracula-comment: #6272a4;
-    --dracula-cyan: #8be9fd;
-    --dracula-green: #50fa7b;
-    --dracula-orange: #ffb86c;
-    --dracula-pink: #ff79c6;
-    --dracula-purple: #bd93f9;
-    --dracula-red: #ff5555;
-    --dracula-yellow: #f1fa8c;
+    --dracula-bg: #1F1F1F; /* Very dark grey, almost black */
+    --dracula-currentLine: #2B2B2B; /* Slightly lighter dark grey */
+    --dracula-selection: #4A4A4A; /* Medium dark grey */
+    --dracula-foreground: #D1D1D1; /* Light grey/off-white */
+    --dracula-comment: #6B5B95; /* Muted, dusky purple */
+    --dracula-cyan: #76D7C4; /* Muted teal/turquoise */
+    --dracula-green: #5E8B7E; /* Deep, desaturated moss green */
+    --dracula-orange: #D8A7B1; /* Dusty rose/faded antique pink */
+    --dracula-pink: #C3447A; /* Deep magenta/wine color */
+    --dracula-purple: #5D9B9B; /* Darker Ghostly Blue/Teal - Main Accent */
+    --dracula-red: #A93226; /* Dark, blood red */
+    --dracula-yellow: #B08D57; /* Antique gold / tarnished brass */
 }
 
 body {
