@@ -1,0 +1,18 @@
+/* Tap highlight color */
+* {
+    -webkit-tap-highlight-color: rgba(189, 147, 249, 0.2);
+}
+
+/* Better touch targets for mobile */
+button, a, input[type="radio"], input[type="checkbox"] {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Adjust form control heights for mobile */
+@media (max-width: 640px) {
+    input[type="text"], input[type="password"], input[type="email"], 
+    textarea, select {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+} 

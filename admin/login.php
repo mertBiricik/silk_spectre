@@ -90,27 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     </script>
-    <!-- Mobile Optimization -->
-    <style>
-        /* Tap highlight color */
-        * {
-            -webkit-tap-highlight-color: rgba(189, 147, 249, 0.2);
-        }
-        
-        /* Better touch targets for mobile */
-        button, a, input[type="radio"], input[type="checkbox"] {
-            min-height: 44px;
-            min-width: 44px;
-        }
-        
-        /* Adjust form control heights for mobile */
-        @media (max-width: 640px) {
-            input[type="text"], input[type="password"], input[type="email"], 
-            textarea, select {
-                font-size: 16px; /* Prevents iOS zoom on focus */
-            }
-        }
-    </style>
+    <!-- Custom Login CSS -->
+    <link rel="stylesheet" href="../css/login.css">
 </head>
 <body class="bg-dracula-bg text-dracula-foreground min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md p-6 sm:p-8 bg-dracula-currentLine rounded-lg shadow-lg">
