@@ -192,17 +192,8 @@ include 'includes/header.php';
         </div>
     <?php endif; ?>
 
-    <div class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-dracula-purple mb-2">Live Poll</h1>
-        <?php if ($active_sequence): ?>
-            <p class="text-dracula-comment">Current Poll Series: <?php echo htmlspecialchars($active_sequence['name']); ?></p>
-        <?php else: ?>
-            <p class="text-dracula-comment">Vote on polls created by administrators.</p>
-        <?php endif; ?>
-    </div>
-
     <?php if ($active_poll): ?>
-        <div class="bg-dracula-currentLine rounded-xl p-6 shadow-lg transform hover:scale-[1.01] transition-transform duration-300 mb-6"
+        <div class="bg-dracula-currentLine rounded-xl p-6 shadow-lg transform hover:scale-[1.01] transition-transform duration-300 mb-6 flex flex-col flex-grow"
              x-data="{
                  pollEndsAt: '<?php echo $active_poll['end_time']; ?>',
                  timeRemaining: 0,
@@ -257,11 +248,11 @@ include 'includes/header.php';
             </div>
             
             <!-- Voting Form (if not voted and results not visible) -->
-            <div x-show="!hasVoted && !showResults">
-                <form method="POST" action="vote.php" x-data="{ selectedOption: null }">
+            <div x-show="!hasVoted && !showResults" class="flex flex-col flex-grow">
+                <form method="POST" action="vote.php" x-data="{ selectedOption: null }" class="flex flex-col flex-grow">
                     <input type="hidden" name="poll_id" value="<?php echo $active_poll['id']; ?>">
                     
-                    <div class="space-y-4 mb-6">
+                    <div class="space-y-6 mb-6 flex flex-col flex-grow justify-around">
                         <?php 
                         // Using $index to alternate colors
                         foreach ($options as $index => $option): 
@@ -270,7 +261,7 @@ include 'includes/header.php';
                             $borderColorClass = ($index % 2 == 0) ? 'border-dracula-purple/50' : 'border-dracula-red/50';
                         ?>
                             <label for="option-<?php echo $option['id']; ?>" 
-                                 class="block w-full <?php echo $bgColorClass; ?> <?php echo $textColorClass; ?> border-2 <?php echo $borderColorClass; ?> rounded-lg p-4 text-center font-semibold shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-dracula-yellow"
+                                 class="block w-full <?php echo $bgColorClass; ?> <?php echo $textColorClass; ?> border-2 <?php echo $borderColorClass; ?> rounded-lg p-12 text-4xl text-center font-semibold shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-dracula-yellow"
                                  @click="selectedOption = <?php echo $option['id']; ?>">
                                 <input type="radio" id="option-<?php echo $option['id']; ?>" name="option_id" 
                                        value="<?php echo $option['id']; ?>" x-model="selectedOption"
@@ -343,13 +334,6 @@ include 'includes/header.php';
             <?php endif; ?>
         </div>
     <?php endif; ?>
-    
-    <div class="mt-10 text-center">
-        <p class="text-dracula-comment">Polls are created and sequenced by administrators</p>
-        <a href="admin/login.php" class="inline-block mt-2 text-dracula-purple hover:text-dracula-pink transition-colors duration-300">
-            Admin Login
-        </a>
-    </div>
 </div>
 
 <?php include 'includes/footer.php'; ?> 
