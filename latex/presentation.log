@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.12)  23 MAY 2025 00:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.12)  23 MAY 2025 00:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -868,11 +868,11 @@ Dictionary: translator-theorem-dictionary, Language: English
 ] [4
 
 ]
-<mobile_screen1.jpg, id=72, 767.86874pt x 960.58875pt>
+<mobile_screen1.jpg, id=72, 1104.125pt x 1606.0pt>
 File: mobile_screen1.jpg Graphic file (type jpg)
 <use mobile_screen1.jpg>
 Package pdftex.def Info: mobile_screen1.jpg  used on input line 68.
-(pdftex.def)             Requested size: 136.19513pt x 170.38496pt.
+(pdftex.def)             Requested size: 117.1243pt x 170.38496pt.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 68.
 
 
@@ -892,23 +892,15 @@ ut line 68.
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )
+<mobile_screen2.jpg, id=73, 1101.11375pt x 1606.0pt>
+File: mobile_screen2.jpg Graphic file (type jpg)
+<use mobile_screen2.jpg>
+Package pdftex.def Info: mobile_screen2.jpg  used on input line 68.
+(pdftex.def)             Requested size: 116.80487pt x 170.38496pt.
 
-LaTeX Warning: File `mobile_screen2.png' not found on input line 68.
-
-
-! Package pdftex.def Error: File `mobile_screen2.png' not found: using draft se
-tting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.68 \end{frame}
-                
-? 
 [5
 
- <./mobile_screen1.jpg>] [6
+ <./mobile_screen1.jpg> <./mobile_screen2.jpg>] [6
 
 ] [7
 
@@ -920,7 +912,8 @@ l.68 \end{frame}
 
 ] [11
 
-] [12
+]
+[12
 
 ]
 \tf@nav=\write6
@@ -937,23 +930,22 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: CCAF0228484E7E78310138972825C92A;1073.
  ) 
 Here is how much of TeX's memory you used:
- 21854 strings out of 478287
- 428187 string characters out of 5849289
+ 21815 strings out of 478287
+ 427399 string characters out of 5849289
  675814 words of memory out of 5000000
- 39549 multiletter control sequences out of 15000+600000
- 477132 words of font info for 56 fonts, out of 8000000 for 9000
+ 39523 multiletter control sequences out of 15000+600000
+ 476964 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,16n,122p,409b,585s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on presentation.pdf (12 pages, 145553 bytes).
+exmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb>
+Output written on presentation.pdf (12 pages, 376601 bytes).
 PDF statistics:
- 160 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
+ 156 PDF objects out of 1000 (max. 8388607)
+ 119 compressed objects within 2 object streams
  31 named destinations out of 1000 (max. 500000)
- 108 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
 
