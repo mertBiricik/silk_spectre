@@ -1,9 +1,11 @@
     </main>
+    <!--
     <footer class="bg-dracula-currentLine py-4 mt-8 rounded-t-lg">
         <div class="container mx-auto px-4 text-center text-dracula-comment">
             <p>&copy; <?php echo date('Y'); ?> Silk Spectre Polling System</p>
         </div>
     </footer>
+    -->
 
     <!-- Page transition script -->
     <script>

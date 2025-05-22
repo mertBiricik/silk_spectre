@@ -87,6 +87,7 @@
       x-data="{ pageLoaded: false }" 
       x-init="setTimeout(() => pageLoaded = true, 100)" 
       :class="{'opacity-0': !pageLoaded, 'opacity-100 transition-opacity duration-500': pageLoaded}">
+    <!--
     <header class="bg-dracula-currentLine shadow-md rounded-b-lg">
         <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between">
             <div class="flex items-center mb-4 sm:mb-0">
@@ -129,7 +130,8 @@
             </nav>
         </div>
     </header>
-    <main class="container mx-auto px-4 py-6 flex-grow animate-fade-in">
+    -->
+    <main class="container mx-auto px-4 py-6 flex-grow flex flex-col animate-fade-in">
     <!-- Main content starts here -->
     <?php if(isset($message) && !empty($message) && (!isset($prevent_auto_message) || $prevent_auto_message !== true)): ?>
         <div class="bg-dracula-green bg-opacity-20 border-l-4 border-dracula-green text-dracula-green p-4 mb-6" role="alert">

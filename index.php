@@ -151,7 +151,7 @@ if ($active_poll) {
 include 'includes/header.php';
 ?>
 
-<div class="animate-fade-in">
+<div class="animate-fade-in flex flex-col flex-grow">
     <?php if (!empty($message)): ?>
         <div x-data="{ show: true }" 
              x-init="setTimeout(() => show = false, 4000)"
@@ -261,7 +261,7 @@ include 'includes/header.php';
                             $borderColorClass = ($index % 2 == 0) ? 'border-dracula-purple/50' : 'border-dracula-red/50';
                         ?>
                             <label for="option-<?php echo $option['id']; ?>" 
-                                 class="block w-full <?php echo $bgColorClass; ?> <?php echo $textColorClass; ?> border-2 <?php echo $borderColorClass; ?> rounded-lg p-12 text-4xl text-center font-semibold shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-dracula-yellow"
+                                 class="w-full <?php echo $bgColorClass; ?> <?php echo $textColorClass; ?> border-2 <?php echo $borderColorClass; ?> rounded-lg p-12 text-4xl text-center font-semibold shadow-md transition-all duration-200 ease-in-out transform hover:scale-105 cursor-pointer focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-dracula-yellow flex flex-grow items-center justify-center"
                                  @click="selectedOption = <?php echo $option['id']; ?>">
                                 <input type="radio" id="option-<?php echo $option['id']; ?>" name="option_id" 
                                        value="<?php echo $option['id']; ?>" x-model="selectedOption"
