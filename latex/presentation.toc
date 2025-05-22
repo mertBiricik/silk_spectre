@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Project Overview}{2}{0}{1}
+\beamer@sectionintoc {2}{The Core Concept}{3}{0}{2}
+\beamer@sectionintoc {3}{Technology & Interaction}{4}{0}{3}
+\beamer@sectionintoc {4}{Scenario Deep Dive: The Mysterious Box}{6}{0}{4}
+\beamer@sectionintoc {5}{Project Goals & Target Audience}{7}{0}{5}
+\beamer@sectionintoc {6}{Conclusion & Future Vision}{9}{0}{6}
