@@ -91,7 +91,7 @@ if ($active_sequence) {
         $start_time = $active_poll['start_time'] ?? date('Y-m-d H:i:s');
         
         // Set end time based on duration (default to 5 minutes if not set)
-        $duration = $active_poll['duration_minutes'] ?? 5;
+        $duration = $active_poll['duration_minutes'] ?? 1;
         $end_time = date('Y-m-d H:i:s', strtotime("+{$duration} minutes", strtotime($start_time)));
         
         $update_stmt = $pdo->prepare("

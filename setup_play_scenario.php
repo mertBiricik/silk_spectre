@@ -3,7 +3,7 @@ require_once 'includes/config.php';
 require_once 'includes/db.php';
 
 // Default values for polls
-const DEFAULT_DURATION_MINUTES = 5;
+const DEFAULT_DURATION_MINUTES = 1;
 const DEFAULT_RESULTS_DURATION_SECONDS = 3;
 
 try {

@@ -14,9 +14,9 @@ run_processor() {
         echo "Running poll sequence processor..."
         php cron_tasks/process_poll_sequences.php
         
-        # Sleep for 10 seconds before checking again
+        # Sleep for 2 seconds before checking again
         echo "Waiting for next check..."
-        sleep 10
+        sleep 2
     done
 }
 
